@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+package loli;
+
+message LoliFields {
+  string firstName = 1;
+  string lastName = 2;
+  int32 age = 3;
+  bool isLewded = 4;
+}
+
+message Loli {
+  string _id = 1;
+  string firstName = 2;
+  string lastName = 3;
+  int32 age = 4;
+  bool isLewded = 5;
+}
+
+message Lolis {
+  repeated Loli lolis = 1;
+}
+
+message ID {
+  string _id = 1;
+}
+
+message Response {
+  string message = 1;
+}
+
+message Empty {}
+
+service LoliService {
+  rpc addLoli (LoliFields) returns (Loli) {}
+  rpc getLoli (ID) returns (Loli) {}
+  rpc getLolis (Empty) returns (Lolis) {}
+  rpc updateLoli (Loli) returns (Loli) {}
+  rpc deleteLoli (ID) returns (Response) {}
+}

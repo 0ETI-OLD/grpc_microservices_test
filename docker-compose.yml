@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  api_gateway:
+    build: ./microservices/api_gateway
+    environment:
+      - PORT=3000
+    ports:
+      - 3000:3000
+    volumes:
+      - ./microservices/api_gateway:/app
+
+  loli_service:
+    build: ./microservices/loli_service
+    environment:
+      - PORT=40000
+    volumes:
+      - ./microservices/loli_service/:/app
+    depends_on:
+      - mongoose_loli_service
+
+  mongoose_loli_service:
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    volumes:
+      - ./microservices/loli_service/src/data:/data/db
